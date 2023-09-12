@@ -3,14 +3,14 @@
     <div>
       <h2>Lines list</h2>
       <div v-if="entriesCount">
-        <JourneyElement v-for="item in pageEntries" :lineName="item" />
+        <JourneyElement v-for="item in pageEntries" :lineName="item" @getStops="setStops" />
         <ThePaginator :entriesCount="entriesCount" v-model:currentPage="page" />
       </div>
       <div v-else>
         <span>Loading...</span>
       </div>
     </div>
-    <MapElement />
+    <MapElement :stopsArray="fetchedStops" />
   </div>
 </template>
 
@@ -28,6 +28,7 @@ export default {
       page: 1,
       journeys: [],
       entriesPerPage: 10,
+      stops: [],
     };
   },
   computed: {
@@ -44,10 +45,16 @@ export default {
       const result = this.journeys.slice(this.startIndex, this.endIndex);
       return result;
     },
+    fetchedStops() {
+      return this.stops;
+    },
   },
   methods: {
     onPageChanged(e) {
       this.page = e;
+    },
+    setStops(e) {
+      this.stops = e;
     },
   },
   async created() {

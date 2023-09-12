@@ -21,6 +21,7 @@ export default {
       map: null,
     };
   },
+  props: ["stopsArray"],
   mounted() {
     this.initMap();
     this.generateStops();
@@ -31,7 +32,7 @@ export default {
         layers: [new TileLayer({ source: new OSM() })],
         view: new View({
           center: fromLonLat([5, 52]),
-          zoom: 1,
+          zoom: 8,
         }),
         target: "map",
       });
@@ -49,6 +50,9 @@ export default {
       vectorSource.addFeature(feature);
 
       this.map.addLayer(vectorLayer);
+    },
+    logStops() {
+      console.log(this.stopsArray);
     },
   },
 };
