@@ -16,17 +16,18 @@ import Feature from "ol/Feature.js";
 
 export default {
   name: "mapElement",
+  data: () => {
+    return {
+      map: null,
+    };
+  },
   mounted() {
     this.initMap();
+    this.generateStops();
   },
   methods: {
     initMap() {
-      const vectorSource = new VectorSource();
-      const vectorLayer = new VectorLayer({ source: vectorSource });
-
-      const coord = fromLonLat([4.7452703, 52.640007]);
-
-      const map = new Map({
+      this.map = new Map({
         layers: [new TileLayer({ source: new OSM() })],
         view: new View({
           center: fromLonLat([5, 52]),
@@ -34,6 +35,12 @@ export default {
         }),
         target: "map",
       });
+    },
+    generateStops() {
+      const vectorSource = new VectorSource();
+      const vectorLayer = new VectorLayer({ source: vectorSource });
+
+      const coord = fromLonLat([4.7452703, 52.640007]);
 
       const feature = new Feature({
         geometry: new Point(coord),
@@ -41,7 +48,7 @@ export default {
 
       vectorSource.addFeature(feature);
 
-      map.addLayer(vectorLayer);
+      this.map.addLayer(vectorLayer);
     },
   },
 };

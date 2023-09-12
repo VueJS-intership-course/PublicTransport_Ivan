@@ -1,16 +1,29 @@
 <template>
   <div>
-    <button @click="console.log(lineName)">{{ lineName }}</button>
+    <button @click="getStops(lineName)">{{ lineName }}</button>
   </div>
 </template>
 
 <script>
+import fetchStops from "../../services/fetchStops";
+
 export default {
   name: "journeyElement",
   props: {
     lineName: {
       type: String,
       required: true,
+    },
+  },
+  methods: {
+    async getStops(id) {
+      try {
+        const response = await fetchStops(id);
+        const stops = response[id].Stops;
+        console.log(stops);
+      } catch (error) {
+        alert("Invalid line , please select another.");
+      }
     },
   },
 };
