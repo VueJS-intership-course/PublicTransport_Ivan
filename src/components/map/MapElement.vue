@@ -13,6 +13,7 @@ import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import Point from "ol/geom/Point.js";
 import Feature from "ol/Feature.js";
+import { Style, Circle, Fill, Stroke } from "ol/style";
 
 export default {
   name: "mapElement",
@@ -61,6 +62,21 @@ export default {
         const feature = new Feature({
           geometry: new Point(coord),
         });
+
+        const pointStyle = new Style({
+          image: new Circle({
+            radius: 6,
+            fill: new Fill({
+              color: "red",
+            }),
+            stroke: new Stroke({
+              color: "black",
+              width: 2,
+            }),
+          }),
+        });
+
+        feature.setStyle(pointStyle);
 
         vectorSource.addFeature(feature);
       });
