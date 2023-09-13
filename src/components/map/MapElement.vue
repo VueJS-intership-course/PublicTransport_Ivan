@@ -50,9 +50,11 @@ export default {
         this.map.removeLayer(this.layer);
       }
 
+      //Create new layer
       const vectorSource = new VectorSource();
       this.layer = new VectorLayer({ source: vectorSource });
 
+      //Go through all stops and generate a point for each one
       stops.forEach((stop) => {
         const coord = fromLonLat([stop.coordinates.longitude, stop.coordinates.latitude]);
 
@@ -63,6 +65,7 @@ export default {
         vectorSource.addFeature(feature);
       });
 
+      //Add the layer to the map
       this.map.addLayer(this.layer);
     },
   },
