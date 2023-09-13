@@ -54,7 +54,14 @@ export default {
       this.page = e;
     },
     setStops(e) {
-      this.stops = e;
+      this.stops = e.map((stop) => {
+        return {
+          name: stop.DestinationName50,
+          status: stop.TripStopStatus,
+          wheelchairAccess: stop.WheelChairAccessible,
+          coordinates: { longitude: stop.Longitude, latitude: stop.Latitude },
+        };
+      });
     },
   },
   async created() {

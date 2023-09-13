@@ -19,12 +19,17 @@ export default {
   data: () => {
     return {
       map: null,
+      layer: null,
     };
   },
   props: ["stopsArray"],
+  watch: {
+    stopsArray: function (newVal) {
+      this.generateStops(newVal);
+    },
+  },
   mounted() {
     this.initMap();
-    this.generateStops();
   },
   methods: {
     initMap() {
@@ -36,23 +41,29 @@ export default {
         }),
         target: "map",
       });
+
+      // TODO: When map is initialised , wouldn't be good to emit an event to the parent element and return the instance of the map
     },
-    generateStops() {
+    generateStops(stops) {
+      // Clear layers before new ones
+      if (this.layer) {
+        this.map.removeLayer(this.layer);
+      }
+
       const vectorSource = new VectorSource();
-      const vectorLayer = new VectorLayer({ source: vectorSource });
+      this.layer = new VectorLayer({ source: vectorSource });
 
-      const coord = fromLonLat([4.7452703, 52.640007]);
+      stops.forEach((stop) => {
+        const coord = fromLonLat([stop.coordinates.longitude, stop.coordinates.latitude]);
 
-      const feature = new Feature({
-        geometry: new Point(coord),
+        const feature = new Feature({
+          geometry: new Point(coord),
+        });
+
+        vectorSource.addFeature(feature);
       });
 
-      vectorSource.addFeature(feature);
-
-      this.map.addLayer(vectorLayer);
-    },
-    logStops() {
-      console.log(this.stopsArray);
+      this.map.addLayer(this.layer);
     },
   },
 };
