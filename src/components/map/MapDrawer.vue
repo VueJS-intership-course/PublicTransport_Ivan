@@ -54,11 +54,6 @@ export default {
       popup: null,
     };
   },
-  computed: {
-    // popup() {
-    //   return this.mapInstance.getOverlays().array_[0];
-    // },
-  },
   props: ["stopsArray"],
   watch: {
     stopsArray: function (newVal) {
@@ -107,16 +102,17 @@ export default {
       //Add the layer to the map
       this.mapInstance.addLayer(this.layer);
 
-      // this.map.on("click", this.showPopup);
-      // document.getElementById("popup-closer").onclick = this.hidePopup;
-
+      //Set the map click event
+      this.mapClickHandler();
+    },
+    mapClickHandler() {
       this.mapInstance.on("click", (evt) => {
         const feature = this.mapInstance.forEachFeatureAtPixel(
           evt.pixel,
           (feature) => feature
         );
         if (feature) {
-          this.clickedStation = feature.getProperties(); //feature.getProperties(); allows to access to the properties of the clicked station
+          this.clickedStation = feature.getProperties();
 
           this.showPopup();
         } else {
@@ -125,8 +121,6 @@ export default {
       });
     },
     showPopup() {
-      // const stationCoordinates = [stationData.coordinates[0], stationData.coordinates[1]];
-
       this.popupName = `Name:${this.clickedStation.name}`;
       this.popupStatus = `Status:${this.clickedStation.status}`;
       this.popupAccess = `WheelChair:${this.clickedStation.wheelchairAccess}`;
