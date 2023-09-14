@@ -1,7 +1,8 @@
 import axios from "axios";
+import { BASE_URL } from "../constants";
 
 const fetchJourneys = async () => {
-  const response = await axios.get("http://localhost:5173/public-transport/journey");
+  const response = await axios.get(BASE_URL);
   const result = response.data;
   return result;
 };

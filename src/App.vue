@@ -10,18 +10,18 @@
         <span>Loading...</span>
       </div>
     </div>
-    <MapElement :stopsArray="fetchedStops" />
+    <MapDrawer :stopsArray="fetchedStops" />
   </div>
 </template>
 
 <script>
 import fetchJourneys from "./services/fetchJourneys";
-import MapElement from "./components/map/MapElement.vue";
+import MapDrawer from "./components/map/MapDrawer.vue";
 import ThePaginator from "./components/paginator/ThePaginator.vue";
 import JourneyElement from "./components/journey/journeyElement.vue";
 
 export default {
-  components: { MapElement, ThePaginator, JourneyElement },
+  components: { MapDrawer, ThePaginator, JourneyElement },
   data: () => {
     return {
       totalEntries: 0,
@@ -76,5 +76,7 @@ export default {
 #container {
   display: flex;
   justify-content: space-between;
+  gap: 6rem;
+  margin: 1rem 2rem;
 }
 </style>

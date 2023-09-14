@@ -9,7 +9,7 @@ import fetchStops from "../../services/fetchStops";
 
 export default {
   name: "journeyElement",
-  emits: ["getStops"],
+  emits: ["get-stops"],
   props: {
     lineName: {
       type: String,
@@ -21,7 +21,7 @@ export default {
       try {
         const response = await fetchStops(id);
         const stops = Object.values(response[id].Stops);
-        this.$emit("getStops", stops);
+        this.$emit("get-stops", stops);
       } catch (error) {
         alert("Invalid line , please select another.");
       }
