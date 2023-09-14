@@ -1,9 +1,9 @@
 <template>
   <div ref="map" class="map"></div>
-  <div id="popup" ref="popup" class="ol-popup">
+  <!-- <div id="popup" ref="popup" class="ol-popup">
     <a href="#" id="popup-closer" class="ol-popup-closer"></a>
     <div id="popup-content"></div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -39,13 +39,13 @@ export default {
         target: this.$refs.map,
       });
 
-      this.popup = new Overlay({
-        element: this.$refs.popup,
-        positioning: "top-center",
-        offset: [0, -10],
-      });
+      //   this.popup = new Overlay({
+      //     element: this.$refs.popup,
+      //     positioning: "top-center",
+      //     offset: [0, -10],
+      //   });
 
-      this.map.addOverlay(this.popup);
+      //   this.map.addOverlay(this.popup);
 
       //   this.map.on("click", this.showPopup);
       //   document.getElementById("popup-closer").onclick = this.hidePopup;

@@ -1,11 +1,13 @@
 <template>
   <div class="map-viewer">
     <Mapinitialization @mapLoaded="onLoadMap" />
+    <div id="popup" class="ol-popup" ref="popup">
+      <a href="#" id="popup-closer" class="ol-popup-closer" @click="hidePopup"></a>
+      <p>{{ popupName }}</p>
+      <p>{{ popupStatus }}</p>
+      <p>{{ popupAccess }}</p>
+    </div>
   </div>
-  <!-- <div id="popup" class="ol-popup">
-    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-    <div id="popup-content">{{ popupContent }}</div>
-  </div> -->
 </template>
 
 <script>
@@ -17,6 +19,7 @@ import Feature from "ol/Feature.js";
 import { Style, Circle, Fill, Stroke } from "ol/style";
 import Icon from "ol/style/Icon";
 import Mapinitialization from "./Mapinitialization.vue";
+import Overlay from "ol/Overlay.js";
 
 export default {
   name: "mapElement",
@@ -44,15 +47,17 @@ export default {
           scale: 0.03,
         }),
       }),
-      popupContent: null,
+      popupName: null,
+      popupStatus: null,
+      popupAccess: null,
       clickedStation: null,
-      currentStations: null,
+      popup: null,
     };
   },
   computed: {
-    popup() {
-      return this.mapInstance.getOverlays().array_[0];
-    },
+    // popup() {
+    //   return this.mapInstance.getOverlays().array_[0];
+    // },
   },
   props: ["stopsArray"],
   watch: {
@@ -64,6 +69,16 @@ export default {
     //Set the instance of the created map to the data property of this component
     onLoadMap(emitedMap) {
       this.mapInstance = emitedMap;
+      this.popup = new Overlay({
+        element: this.$refs.popup,
+        autoPan: {
+          animation: {
+            duration: 250,
+          },
+        },
+      });
+
+      this.mapInstance.addOverlay(this.popup);
     },
     generateStops(stops) {
       // Clear layers before new ones
@@ -110,20 +125,21 @@ export default {
       });
     },
     showPopup() {
-      this.popupContent = "testst";
+      // const stationCoordinates = [stationData.coordinates[0], stationData.coordinates[1]];
 
-      const stationData = this.clickedStation;
-      const stationCoordinates = [stationData.coordinates[0], stationData.coordinates[1]];
+      this.popupName = `Name:${this.clickedStation.name}`;
+      this.popupStatus = `Status:${this.clickedStation.status}`;
+      this.popupAccess = `WheelChair:${this.clickedStation.wheelchairAccess}`;
 
-      this.popupContent = stationData.name;
-
-      console.log(stationCoordinates);
-
-      this.popup.setPosition(stationCoordinates);
+      this.popup.setPosition(this.clickedStation.coordinates);
     },
     hidePopup() {
       this.popup.setPosition(undefined);
+      console.log("in hideout");
       this.clickedStation = null;
+      this.popupName = null;
+      this.popupStatus = null;
+      this.popupAccess = null;
     },
   },
 };
