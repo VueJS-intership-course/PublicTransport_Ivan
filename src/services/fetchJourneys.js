@@ -1,9 +1,10 @@
-import axios from "axios";
-import { BASE_URL } from "../constants";
+import api from "./instance";
 
 const fetchJourneys = async () => {
-  const response = await axios.get(BASE_URL);
+  const response = await api.get();
+
   const result = response.data;
+
   return result;
 };
 

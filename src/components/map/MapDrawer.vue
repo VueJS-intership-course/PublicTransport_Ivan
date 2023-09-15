@@ -59,19 +59,12 @@ export default {
     stopsArray: function (newVal) {
       this.generateStops(newVal);
     },
-    // stopsArray: {
-    //   handler(newVal) {
-    //     // this will be run immediately on component creation.
-
-    //   },
-    //   // force eager callback execution
-    //   immediate: true
-    // }
   },
   methods: {
     //Set the instance of the created map to the data property of this component
     onLoadMap(emitedMap) {
       this.mapInstance = emitedMap;
+
       this.popup = new Overlay({
         element: this.$refs.popup,
         autoPan: {
@@ -117,12 +110,12 @@ export default {
       //Set the map click event
 
       this.mapInstance.on("click", (evt) => {
-        const feature = this.mapInstance.forEachFeatureAtPixel(
+        const features = this.mapInstance.forEachFeatureAtPixel(
           evt.pixel,
           (feature) => feature
         );
-        if (feature) {
-          this.clickedStation = feature.getProperties();
+        if (features) {
+          this.clickedStation = features.getProperties();
 
           this.showPopup();
         } else {
@@ -139,7 +132,7 @@ export default {
     },
     hidePopup() {
       this.popup.setPosition(undefined);
-      console.log("in hideout");
+
       this.clickedStation = null;
       this.popupName = null;
       this.popupStatus = null;
