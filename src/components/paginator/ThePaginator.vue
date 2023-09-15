@@ -81,7 +81,9 @@ ul {
 }
 
 button {
-  padding: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 button[disabled] {

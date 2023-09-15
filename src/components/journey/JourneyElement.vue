@@ -1,6 +1,11 @@
 <template>
   <div>
-    <button @click="getStops(lineName)">{{ lineName }}</button>
+    <router-link
+      :to="{ name: 'journey', params: { journeyId: lineName } }"
+      :class="{ selected: lineName === '$route.params' }"
+    >
+      {{ lineName }}
+    </router-link>
   </div>
 </template>
 
@@ -8,12 +13,22 @@
 import fetchStops from "../../services/fetchStops";
 
 export default {
-  name: "journeyElement",
+  name: "JourneyElement",
   emits: ["get-stops"],
   props: {
     lineName: {
       type: String,
       required: true,
+    },
+  },
+  watch: {
+    "$route.params": {
+      immediate: true,
+      handler(newVal) {
+        if (newVal.journeyId) {
+          this.getStops(newVal.journeyId);
+        }
+      },
     },
   },
   methods: {
@@ -31,7 +46,7 @@ export default {
 </script>
 
 <style scoped>
-button {
+a {
   display: block;
   width: 100%;
   padding: 1rem;
@@ -39,5 +54,11 @@ button {
   border: 2px solid #ccc;
   margin: 0.5rem auto;
   cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.router-link-exact-active {
+  background-color: #ccc;
 }
 </style>
