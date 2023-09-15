@@ -1,9 +1,5 @@
 <template>
   <div ref="map" class="map"></div>
-  <!-- <div id="popup" ref="popup" class="ol-popup">
-    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-    <div id="popup-content"></div>
-  </div> -->
 </template>
 
 <script>
@@ -13,7 +9,6 @@ import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
 import OSM from "ol/source/OSM";
 import { fromLonLat } from "ol/proj";
-import Overlay from "ol/Overlay.js";
 
 export default {
   name: "MapInitilization",
@@ -21,8 +16,6 @@ export default {
   data: () => {
     return {
       map: null,
-      popup: null,
-      popupContent: null,
     };
   },
   mounted() {
@@ -39,29 +32,11 @@ export default {
         target: this.$refs.map,
       });
 
-      //   this.popup = new Overlay({
-      //     element: this.$refs.popup,
-      //     positioning: "top-center",
-      //     offset: [0, -10],
-      //   });
-
-      //   this.map.addOverlay(this.popup);
-
-      //   this.map.on("click", this.showPopup);
-      //   document.getElementById("popup-closer").onclick = this.hidePopup;
-
       this.map.on("rendercomplete", this.emitMap);
     },
     emitMap() {
       this.$emit("map-loaded", this.map);
     },
-    // showPopup(event) {
-    //   this.popupContent = "testst";
-    //   this.popup.setPosition(event.coordinate);
-    // },
-    // hidePopup() {
-    //   this.popup.setPosition(undefined);
-    // },
   },
 };
 </script>

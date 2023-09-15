@@ -59,6 +59,14 @@ export default {
     stopsArray: function (newVal) {
       this.generateStops(newVal);
     },
+    // stopsArray: {
+    //   handler(newVal) {
+    //     // this will be run immediately on component creation.
+
+    //   },
+    //   // force eager callback execution
+    //   immediate: true
+    // }
   },
   methods: {
     //Set the instance of the created map to the data property of this component
@@ -102,10 +110,12 @@ export default {
       //Add the layer to the map
       this.mapInstance.addLayer(this.layer);
 
-      //Set the map click event
+      //Hook the map click event
       this.mapClickHandler();
     },
     mapClickHandler() {
+      //Set the map click event
+
       this.mapInstance.on("click", (evt) => {
         const feature = this.mapInstance.forEachFeatureAtPixel(
           evt.pixel,
@@ -121,9 +131,9 @@ export default {
       });
     },
     showPopup() {
-      this.popupName = `Name:${this.clickedStation.name}`;
-      this.popupStatus = `Status:${this.clickedStation.status}`;
-      this.popupAccess = `WheelChair:${this.clickedStation.wheelchairAccess}`;
+      this.popupName = `Name: ${this.clickedStation.name}`;
+      this.popupStatus = `Status: ${this.clickedStation.status}`;
+      this.popupAccess = `WheelChair: ${this.clickedStation.wheelchairAccess}`;
 
       this.popup.setPosition(this.clickedStation.coordinates);
     },

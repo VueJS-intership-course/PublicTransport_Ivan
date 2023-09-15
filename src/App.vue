@@ -11,6 +11,7 @@
       </div>
     </div>
     <MapDrawer :stopsArray="fetchedStops" />
+    <!-- <h2 class="loadingH2" v-else>Please select a journey</h2> -->
   </div>
 </template>
 
@@ -78,5 +79,9 @@ export default {
   justify-content: space-between;
   gap: 6rem;
   margin: 1rem 2rem;
+}
+.loadingH2 {
+  font-size: 3.5rem;
+  margin: auto;
 }
 </style>
