@@ -1,24 +1,20 @@
 <template>
   <div>
-    <router-link
-      :to="{ name: 'journey', params: { journeyId: lineName } }"
-      :class="{ selected: lineName === '$route.params' }"
-    >
-      {{ lineName }}
-    </router-link>
+    <JourneyItem v-for="(item, key) in pageEntries" :key="key" :lineName="item" />
   </div>
 </template>
 
 <script>
 import fetchStops from "@/services/fetchStops";
+import JourneyItem from "@/components/journey/JourneyItem.vue";
 
 export default {
   name: "JourneyElement",
+  components: { JourneyItem },
   emits: ["get-stops"],
   props: {
-    lineName: {
-      type: String,
-      required: true,
+    pageEntries: {
+      type: Array,
     },
   },
   watch: {
@@ -38,27 +34,10 @@ export default {
         const stops = Object.values(response[id].Stops);
         this.$emit("get-stops", stops);
       } catch (error) {
+        this.$router.push("/journeys");
         alert("Invalid line , please select another.");
       }
     },
   },
 };
 </script>
-
-<style scoped>
-a {
-  display: block;
-  width: 100%;
-  padding: 1rem;
-  background-color: white;
-  border: 2px solid #ccc;
-  margin: 0.5rem auto;
-  cursor: pointer;
-  text-decoration: none;
-  color: black;
-}
-
-.router-link-exact-active {
-  background-color: #ccc;
-}
-</style>

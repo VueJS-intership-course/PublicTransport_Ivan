@@ -3,12 +3,7 @@
     <div>
       <h2>Lines list</h2>
       <div v-if="entriesCount">
-        <JourneyElement
-          v-for="(item, key) in pageEntries"
-          :key="key"
-          :lineName="item"
-          @getStops="setStops"
-        />
+        <JourneyList :pageEntries="pageEntries" @getStops="setStops" />
         <ThePaginator :entriesCount="entriesCount" v-model:currentPage="page" />
       </div>
       <div v-else>
@@ -23,10 +18,10 @@
 import fetchJourneys from "@/services/fetchJourneys";
 import MapDrawer from "@/components/map/MapDrawer.vue";
 import ThePaginator from "@/components/paginator/ThePaginator.vue";
-import JourneyElement from "@/components/journey/JourneyElement.vue";
+import JourneyList from "@/components/journey/JourneyList.vue";
 
 export default {
-  components: { MapDrawer, ThePaginator, JourneyElement },
+  components: { MapDrawer, ThePaginator, JourneyList },
   data: () => {
     return {
       totalEntries: 0,
