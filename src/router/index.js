@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import JourneyPage from "../pages/JourneyPage/JourneyPage.vue";
-import MapDrawer from "../components/map/MapDrawer.vue";
+import JourneyPage from "@/pages/JourneyPage/JourneyPage.vue";
 
 // const routes = [{ path: "/" }, { path: "/:journeys?", props: true }];
 const routes = [

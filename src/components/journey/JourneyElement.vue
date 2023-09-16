@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import fetchStops from "../../services/fetchStops";
+import fetchStops from "@/services/fetchStops";
 
 export default {
   name: "JourneyElement",

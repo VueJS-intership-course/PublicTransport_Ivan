@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import fetchJourneys from "../../services/fetchJourneys";
-import MapDrawer from "../../components/map/MapDrawer.vue";
-import ThePaginator from "../../components/paginator/ThePaginator.vue";
-import JourneyElement from "/src/components/journey/JourneyElement.vue";
+import fetchJourneys from "@/services/fetchJourneys";
+import MapDrawer from "@/components/map/MapDrawer.vue";
+import ThePaginator from "@/components/paginator/ThePaginator.vue";
+import JourneyElement from "@/components/journey/JourneyElement.vue";
 
 export default {
   components: { MapDrawer, ThePaginator, JourneyElement },
