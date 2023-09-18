@@ -21,6 +21,7 @@ export default {
     "$route.params": {
       immediate: true,
       handler(newVal) {
+        console.log("in watcher");
         if (newVal.journeyId) {
           this.getStops(newVal.journeyId);
         }

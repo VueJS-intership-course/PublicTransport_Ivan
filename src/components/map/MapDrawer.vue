@@ -102,7 +102,8 @@ export default {
       });
       //Add the layer to the map
       this.mapInstance.addLayer(this.layer);
-
+      const extent = this.layer.getSource().getExtent();
+      this.mapInstance.getView().fit(extent, { duration: 2500, zoom: 13 });
       //Hook the map click event
       this.mapClickHandler();
     },
